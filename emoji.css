@@ -26,11 +26,18 @@ body {
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
   }
 
+  #guess-input:focus {
+    outline: none;
+    border : 2px solid #007bff;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+  }
+
   #result {
     font-size: 18px;
     margin-bottom: 20px;
     color: #333;
   }
+
 
   #score {
     font-size: 18px;
@@ -38,6 +45,12 @@ body {
   }
 
   #timer {
+    font-size: 18px;
+    margin-bottom: 40px;
+    color: #333;
+  }
+
+  #timerResult{
     font-size: 18px;
     margin-bottom: 40px;
     color: #333;

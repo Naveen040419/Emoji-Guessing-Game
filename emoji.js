@@ -13,6 +13,12 @@ let currentIndex = 0;
 // Find the score...
 let score = 0;
 
+// Set the Time...
+let time = 10;
+
+// Variable to store the timer...
+let timer;
+
 // Select all the element using DOM manipulation...
 
 const Description = document.getElementById("description");
@@ -23,13 +29,18 @@ const result = document.getElementById("result");
 
 const Score = document.getElementById("score");
 
+const Timer = document.getElementById("timer");
+
+const timerResult = document.getElementById("timerResult");
 
 function displayEmoji(){
   Description.textContent = emojiDetails[currentIndex].emoji;
+  Timer.textContent = `Timer: ${time}Seconds`;
 }
 
 document.addEventListener("DOMContentLoaded", ()=>{
   displayEmoji();
+  startTimer();
 });
 
 function guessInput() {
@@ -45,8 +56,13 @@ function guessInput() {
     result.textContent = "Wrong";
   }
 
-  Score.textContent = `Score: ${score}`;
+  Score.textContent = `Score : ${score} `;
   Input.value = "";
+
+  setTimeout( ()=>{
+    result.textContent = "";
+  }, 1000);
+
   nextEmoji();
 }
 
@@ -57,7 +73,7 @@ Input.addEventListener("keydown", (event) => {
 }
 });
 
- function nextEmoji() {
+function nextEmoji() {
     currentIndex++;
 
     if (currentIndex === emojiDetails.length) {
@@ -66,4 +82,34 @@ Input.addEventListener("keydown", (event) => {
     }
 
     displayEmoji();
-  }
+}
+
+
+function startTimer(){
+
+  timer = setInterval( ()=>{
+
+    time--;
+
+    Timer.textContent = `Timer: ${time} Seconds`;
+
+    if (time === 0) {
+
+      clearInterval(timer);
+      timerResult.textContent = "Time's up!";
+      Input.disabled = true;
+
+      setTimeout(() => {
+
+        Input.disabled = false;
+        time = 10; // Reset time for the next emoji
+
+        nextEmoji();
+        startTimer(); // Restart the timer
+
+        timerResult.textContent = "";
+      }, 1000);
+    }
+
+  }, 1000);
+}
